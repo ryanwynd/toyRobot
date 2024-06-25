@@ -3,6 +3,9 @@
 
 name: Build and deploy dotnet core app to Azure Function App - FunctionRobotApp
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
