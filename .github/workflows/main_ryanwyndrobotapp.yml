@@ -9,6 +9,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+    AZURE_WEBAPP_PACKAGE_PATH: './RobotApp'
+
+
 jobs:
   build:
     runs-on: windows-latest
@@ -62,5 +66,5 @@ jobs:
         with:
           app-name: 'RyanWyndRobotApp'
           slot-name: 'Production'
-          package: ./RobotApp
+          package: .
           
