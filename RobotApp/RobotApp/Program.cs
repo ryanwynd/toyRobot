@@ -10,6 +10,8 @@ namespace RobotApp
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello World");
+            Console.WriteLine("Test update");
         }
     }
 }
