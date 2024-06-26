@@ -1,27 +1,31 @@
-﻿@page "/"
+﻿@using RobotApp.Shared;
+
+@page "/"
 
 <PageTitle>Home</PageTitle>
 
-<p>
-        <input type="text" @bind="inputCommand" @onkeyup="@HandleKeyPress" />
-</p>
+<p>@infoMessage</p>
 
+<input placeholder="Enter Command" @bind="newCommand" />
+<button @onclick="RunCommand">Run</button>
 
 
 @code {
 
-    private string inputCommand = "";
+    private List<string> commands = new();
+    private string? newCommand;
+
+    private string infoMessage = "Welcome to the Toy Robot App";
 
     private void RunCommand()
     {
-        inputCommand = "";
-    }
-
-    private void HandleKeyPress(KeyboardEventArgs keyboardEventArgs)
-    {
-        if (keyboardEventArgs.Code == "Enter" || keyboardEventArgs.Code == "NumpadEnter")
+        if (Command.ValidateCommand(newCommand))
         {
-            RunCommand();
+            commands.Add(newCommand);
+            infoMessage = "Ran: " + commands.Last();
+            newCommand = string.Empty;
         }
     }
+
+    
 }
