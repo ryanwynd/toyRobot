@@ -2,8 +2,8 @@
 {
     public class Table
     {
-        private int width { get; set; } = 5;
-        private int length { get; set; } = 5;
+        public int width { get; set; } = 5;
+        public int length { get; set; } = 5;
 
     }
 }
