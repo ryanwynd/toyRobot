@@ -2,18 +2,26 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<p>
+        <input type="text" @bind="inputCommand" @onkeyup="@HandleKeyPress" />
+</p>
 
-<form action="" method="post">
-	<p>
-		<label for="text1">First Number:</label><br>
-		<input type="text" name="text1" />
-	</p>
-	<p>
-		<label for="text2">Second Number:</label><br>
-		<input type="text" name="text2" />
-	</p>
-	<p><input type="submit" value=" Add " /></p>
-</form>
 
-Welcome to your new app.
+
+@code {
+
+    private string inputCommand = "";
+
+    private void RunCommand()
+    {
+        inputCommand = "";
+    }
+
+    private void HandleKeyPress(KeyboardEventArgs keyboardEventArgs)
+    {
+        if (keyboardEventArgs.Code == "Enter" || keyboardEventArgs.Code == "NumpadEnter")
+        {
+            RunCommand();
+        }
+    }
+}
