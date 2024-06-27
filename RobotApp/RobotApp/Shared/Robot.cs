@@ -1,91 +1,134 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace RobotApp.Shared
 {
     public class Robot
     {
-        private int xPos { get; set; }
-        private int yPos { get; set; }
-        private Direction facing { get; set; }
+        private int? xPos { get; set; }
+        private int? yPos { get; set; }
+        private Direction? facing { get; set; }
         private Table table { get; }
 
-        public Robot(int x, int y, Direction facingDirection, Table tableOn)
+        public Robot()
         {
-            xPos = x;
-            yPos = y;
-            facing = facingDirection;
-            table = tableOn;
+            table = new Table();
         }
 
-
-        public void move()
+        public void Place(int x, int y, Direction facingDirection)
         {
-            int[] destinationPosition = [xPos, yPos];
-            switch (facing)
+            if(!IsPlaced() && IsDestinationOnTable(x,y))
             {
-                case Direction.North:
-                    destinationPosition[1] = yPos + 1;
-                    break;
-                case Direction.South:
-                    destinationPosition[1] = yPos - 1;
-                    break;
-                case Direction.West:
-                    destinationPosition[0] = xPos - 1;
-                    break;
-                case Direction.East:
-                    destinationPosition[0] = xPos + 1;
-                    break;
-            }
-            if (!(destinationPosition[0] < 0 || destinationPosition[0] > table.width || destinationPosition[1] < 0 || destinationPosition[0] > table.length))
-            {
-                xPos = destinationPosition[0];
-                yPos = destinationPosition[1];
+                xPos = x;
+                yPos = y;
+                facing = facingDirection;
             }
         }
 
-        public void turnLeft()
+        public void Move()
         {
-            switch (facing)
+            if (IsPlaced())
             {
-                case Direction.North:
-                    facing = Direction.West;
-                    break;
-                case Direction.South:
-                    facing = Direction.East;
-                    break;
-                case Direction.West:
-                    facing = Direction.South;
-                    break;
-                case Direction.East:
-                    facing = Direction.North;
-                    break;
+                int[] destinationPosition = [xPos.Value, yPos.Value];
+                switch (facing)
+                {
+                    case Direction.NORTH:
+                        destinationPosition[1] = yPos.Value + 1;
+                        break;
+                    case Direction.SOUTH:
+                        destinationPosition[1] = yPos.Value - 1;
+                        break;
+                    case Direction.WEST:
+                        destinationPosition[0] = xPos.Value - 1;
+                        break;
+                    case Direction.EAST:
+                        destinationPosition[0] = xPos.Value + 1;
+                        break;
+                }
+                if (IsDestinationOnTable(destinationPosition[0], destinationPosition[1]))
+                {
+                    xPos = destinationPosition[0];
+                    yPos = destinationPosition[1];
+                }
+            }
+            else return;
+        }
+
+        public void TurnLeft()
+        {
+            if (IsPlaced())
+            {
+                switch (facing)
+                {
+                    case Direction.NORTH:
+                        facing = Direction.WEST;
+                        break;
+                    case Direction.SOUTH:
+                        facing = Direction.EAST;
+                        break;
+                    case Direction.WEST:
+                        facing = Direction.SOUTH;
+                        break;
+                    case Direction.EAST:
+                        facing = Direction.NORTH;
+                        break;
+                }
             }
         }
-        public void turnRight()
+        public void TurnRight()
         {
-            switch (facing)
+            if (IsPlaced())
             {
-                case Direction.North:
-                    facing = Direction.East;
-                    break;
-                case Direction.South:
-                    facing = Direction.West;
-                    break;
-                case Direction.West:
-                    facing = Direction.North;
-                    break;
-                case Direction.East:
-                    facing = Direction.South;
-                    break;
+                switch (facing)
+                {
+                    case Direction.NORTH:
+                        facing = Direction.EAST;
+                        break;
+                    case Direction.SOUTH:
+                        facing = Direction.WEST;
+                        break;
+                    case Direction.WEST:
+                        facing = Direction.NORTH;
+                        break;
+                    case Direction.EAST:
+                        facing = Direction.SOUTH;
+                        break;
+                }
             }
+        }
+        public string Report()
+        {
+            if (IsPlaced())
+            {
+                return xPos + "," + yPos + "," + facing;
+            }
+            return "Robot has not yet been placed";
+        }
+
+        public bool IsPlaced()
+        {
+            if (xPos.HasValue && yPos.HasValue)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public bool IsDestinationOnTable(int x, int y)
+        {
+            if ((!(x < 0 || x > table.width) && !(y < 0 || y > table.length)))
+            {
+                return true;
+            }
+            else return false;
         }
     }
 
     public enum Direction
     {
-        North,
-        South,
-        East,
-        West
+        NORTH,
+        SOUTH,
+        EAST,
+        WEST
     }
 }
