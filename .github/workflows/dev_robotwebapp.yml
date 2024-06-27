@@ -29,6 +29,9 @@ jobs:
       - name: Build with dotnet
         run: dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release 
 
+      - name: Run dotnet tests
+        run: dotnet test ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
       - name: dotnet publish
         run: dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
