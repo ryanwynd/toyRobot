@@ -7,19 +7,6 @@ namespace RobotTesting
 {
     public class CommandValidatorTests : TestContext
     {
-        /* Couldnt figure out text input, may come back to
-        [Fact]
-        public void InputShouldntAcceptFirstEmptyInput()
-        {
-            var cut = RenderComponent<Home>();
-            var button = cut.Find("button");
-
-            button.Click();
-
-            cut.Find("p").MarkupMatches("<p>Welcome to the Toy Robot App</p>");
-        }
-        */
-
         [Fact]
         public void CommandValidatorEmptyStringReturnFalse()
         {
@@ -89,6 +76,13 @@ namespace RobotTesting
             bool result = Command.ValidateCommand("PLACE 1,2 South PLACE 1,2 South");
 
             Assert.False(result, "Only one command at a time");
+        }
+        [Fact]
+        public void CommandValidatorLongPlaceCommandReturnFalse()
+        {
+            bool result = Command.ValidateCommand("PLACE 11,23456789123456789 NORTH");
+
+            Assert.False(result, "Place command coordinates are too long");
         }
         [Fact]
         public void CommandValidatorIncorrectPlaceReturnFalse()
