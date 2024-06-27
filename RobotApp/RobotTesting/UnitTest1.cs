@@ -139,9 +139,8 @@ namespace RobotTesting
         [Fact]
         public void CommandResolverInvalidReturnInvalid()
         {
-            string result = Command.ResolveCommand("Jump");
 
-            Assert.Equal("Invalid Command", result);
+            Assert.Throws<ArgumentException>(() => Command.ResolveCommand("Jump"));
         }
         [Fact]
         public void PlaceResolverReturnsCorrectPlaceComandRecord()
