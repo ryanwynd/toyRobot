@@ -1,0 +1,65 @@
+﻿@using RobotApp.Shared;
+
+@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<p>@infoMessage</p>
+
+<input placeholder="Enter Command" @bind="newCommand" @onkeyup="@Enter" />
+<button @onclick="RunCommand">Run</button>
+
+
+@code {
+
+    private Robot robot = new Robot();
+
+    private string? newCommand;
+
+    private string infoMessage = "Welcome to the Toy Robot App";
+
+    public void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            RunCommand();
+        }
+    }
+
+    private void RunCommand()
+    {
+        if (Command.ValidateCommand(newCommand))
+        {
+            var command = Command.ResolveCommand(newCommand);
+
+            switch (command)
+            {
+                case "PLACE":
+                    var placeCommand = Command.ResolvePlace(newCommand);
+                    robot.Place(placeCommand.xPos, placeCommand.yPos, placeCommand.facing);
+                    break;
+                case "MOVE":
+                    robot.Move();
+                    break;
+                case "LEFT":
+                    robot.TurnLeft();
+                    break;
+                case "RIGHT":
+                    robot.TurnRight();
+                    break;
+                case "REPORT":
+                    infoMessage = robot.Report();
+                    break;
+                    
+            }
+
+            newCommand = string.Empty;
+        }
+        else
+        {
+            infoMessage = "Invalid command: " + newCommand;
+            newCommand = string.Empty;
+        }
+    }
+
+}

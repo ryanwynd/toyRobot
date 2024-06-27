@@ -1,12 +1,12 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - ToyRobotWebApp
+name: Build and deploy ASP.Net Core app to Azure Web App - RobotWebAppDEV
 
 on:
   push:
     branches:
-      - main
+      - dev
   workflow_dispatch:
 
 env:
@@ -27,7 +27,7 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release
+        run: dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release 
 
       - name: Run dotnet tests
         run: dotnet test ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
@@ -59,14 +59,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E638AD4919E54E76AC11B920D01F3091 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_32B47099C2F04FDC9DF7FC2AA6067428 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_25738400451A49A38EA857F36B8EF8F9 }
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_BC60C34D9F784703B4F216D1756A2968 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_483540A1DC844200AD2E1C81405E621D }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CA8441663562419BB8B036BD486916A8 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'ToyRobotWebApp'
+          app-name: 'RobotWebAppDEV'
           slot-name: 'Production'
           package: .
+          
