@@ -32,17 +32,17 @@ namespace RobotApp.Shared
                 int[] destinationPosition = [xPos.Value, yPos.Value];
                 switch (facing)
                 {
-                    case Direction.NORTH:
-                        destinationPosition[1] = yPos.Value + 1;
-                        break;
-                    case Direction.SOUTH:
-                        destinationPosition[1] = yPos.Value - 1;
-                        break;
                     case Direction.WEST:
                         destinationPosition[0] = xPos.Value - 1;
                         break;
                     case Direction.EAST:
                         destinationPosition[0] = xPos.Value + 1;
+                        break;
+                    case Direction.NORTH:
+                        destinationPosition[1] = yPos.Value + 1;
+                        break;
+                    case Direction.SOUTH:
+                        destinationPosition[1] = yPos.Value - 1;
                         break;
                 }
                 if (IsDestinationOnTable(destinationPosition[0], destinationPosition[1]))
@@ -51,7 +51,6 @@ namespace RobotApp.Shared
                     yPos = destinationPosition[1];
                 }
             }
-            else return;
         }
 
         public void TurnLeft()
@@ -105,7 +104,7 @@ namespace RobotApp.Shared
             return "Robot has not yet been placed";
         }
 
-        public bool IsPlaced()
+        private bool IsPlaced()
         {
             if (xPos.HasValue && yPos.HasValue)
             {
@@ -114,7 +113,7 @@ namespace RobotApp.Shared
             else return false;
         }
 
-        public bool IsDestinationOnTable(int x, int y)
+        private bool IsDestinationOnTable(int x, int y)
         {
             if ((!(x < 0 || x > table.width) && !(y < 0 || y > table.length)))
             {

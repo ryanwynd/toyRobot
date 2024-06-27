@@ -4,18 +4,14 @@ namespace RobotApp.Shared
 {
     public static class Command
     {
-        static string regex = "^(?:(?<command>PLACE)\\s(?<xPos>\\d),(?<yPos>\\d)\\s(?<direction>North|South|East|West)|(?<command>MOVE|LEFT|RIGHT|REPORT))$";
+        private static readonly string regex = "^(?:(?<command>PLACE)\\s(?<xPos>\\d),(?<yPos>\\d)\\s(?<direction>North|South|East|West)|(?<command>MOVE|LEFT|RIGHT|REPORT))$";
 
         public static bool ValidateCommand(string command)
         {
             if (!string.IsNullOrWhiteSpace(command))
             {
                 var match = Regex.Match(command, regex, RegexOptions.IgnoreCase);
-                if (match.Success)
-                {
-                    return true;
-                }
-                else return false;
+                return match.Success;
             }
             else return false;
         }
@@ -29,7 +25,7 @@ namespace RobotApp.Shared
                 string command = match.Groups["command"].Value.ToUpper();
                 return command;
             }
-            else return "Invalid Command";
+            else throw new ArgumentException("Invalid argument passed to ResolveCommand");
         }
 
         public static PlaceCommand ResolvePlace(string fullCommand)
