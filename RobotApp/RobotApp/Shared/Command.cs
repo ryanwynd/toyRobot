@@ -4,7 +4,7 @@ namespace RobotApp.Shared
 {
     public static class Command
     {
-        private static readonly string regex = "^(?:(?<command>PLACE)\\s(?<xPos>\\d),(?<yPos>\\d)\\s(?<direction>North|South|East|West)|(?<command>MOVE|LEFT|RIGHT|REPORT))$";
+        private static readonly string regex = "^(?:(?<command>PLACE)\\s(?<xPos>\\d),(?<yPos>\\d),(?<direction>North|South|East|West)|(?<command>MOVE|LEFT|RIGHT|REPORT))$";
 
         public static bool ValidateCommand(string command)
         {
