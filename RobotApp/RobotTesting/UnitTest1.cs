@@ -18,7 +18,7 @@ namespace RobotTesting
         [Fact]
         public void CommandValidatorCorrectPlaceReturnTrue()
         {
-            bool result = Command.ValidateCommand("PLACE 1,1 North");
+            bool result = Command.ValidateCommand("PLACE 1,1,North");
 
             Assert.True(result, "Command is correct");
         }
@@ -73,14 +73,14 @@ namespace RobotTesting
         [Fact]
         public void CommandValidatorDoublePlaceCommandReturnFalse()
         {
-            bool result = Command.ValidateCommand("PLACE 1,2 South PLACE 1,2 South");
+            bool result = Command.ValidateCommand("PLACE 1,2,South PLACE 1,2,South");
 
             Assert.False(result, "Only one command at a time");
         }
         [Fact]
         public void CommandValidatorLongPlaceCommandReturnFalse()
         {
-            bool result = Command.ValidateCommand("PLACE 11,23456789123456789 NORTH");
+            bool result = Command.ValidateCommand("PLACE 11,23456789123456789,NORTH");
 
             Assert.False(result, "Place command coordinates are too long");
         }
@@ -126,7 +126,7 @@ namespace RobotTesting
         [Fact]
         public void CommandResolverPlaceReturnPlace()
         {
-            string result = Command.ResolveCommand("Place 0,0 North");
+            string result = Command.ResolveCommand("Place 0,0,North");
 
             Assert.Equal("PLACE", result);
         }
@@ -139,7 +139,7 @@ namespace RobotTesting
         [Fact]
         public void PlaceResolverReturnsCorrectPlaceComandRecord()
         {
-            PlaceCommand result = Command.ResolvePlace("Place 3,2 West");
+            PlaceCommand result = Command.ResolvePlace("Place 3,2,West");
 
             Assert.Equal(3, result.xPos);
             Assert.Equal(2, result.yPos);
