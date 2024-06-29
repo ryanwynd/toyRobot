@@ -5,6 +5,13 @@
 My implementation of the Toy Robot application itself is quite simple as I tried to split the focus between creating the app itself and getting it set up and deploying to Azure.
 I created the app in C#, using a very basic Blazor frontend. I then use a simple github actions pipeline to build, test and deploy to an Azure web app.
 
+**Running locally**
+
+The two easiest ways to run the app locally would be to either:
+- Run directly through Visual Studio, it should automatically open the page in your default browser
+- Run `dotnet run` in /RobotApp/RobotApp, then access the app through localhost on whichever port the `dotnet run` command provides
+
+
 **Components used and reasoning**
 
 Azure 
