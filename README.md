@@ -10,6 +10,7 @@ I created the app in C#, using a very basic Blazor frontend. I then use a simple
 The two easiest ways to run the app locally would be to either:
 - Run directly through Visual Studio, it should automatically open the page in your default browser
 - Run `dotnet run` in /RobotApp/RobotApp, then access the app through localhost on whichever port the `dotnet run` command provides
+- Run in a container by first checking docker desktop is running. Then: from /RobotApp run `docker build -t robotapp .` once that is completed run `docker run -p 8080:80 --name robotapp robotapp`, the app should now be accessible at localhost:8080
 
 
 **Components used and reasoning**
@@ -29,6 +30,12 @@ Github
 - Since I decided on deploying to an Azure Web App I needed at least a simple front end for the app and this is not an area I am strong with. Looking over the example project you provided me, Blazor seemed the most simple to use to plug in a simple command input to and start processing user commands and show the required outputs. I spent minimal time and effort on the front end, just enough to allow a user to input commands and see the REPORT outputs.
 - xUnit was picked for unit testing as it was what the tutorial on Blazor testing I watched used (Though I did not get around to actually getting the tests inputting commands through the UI working, so I could have used any testing framework but they're all quite similar for a simple project like this regardless)
 - TDD and some SOLID priciples were kept in mind when developing the app.
+
+Docker
+- The standard tool used everywhere for containerising things so it was the easy choice for this project (though in my experience using podman is basically an identical process)
+- I used a pretty standard setup using microsofts dotnet sdk image as base, building and publishing the app in there the same as before then adding an nginx layer to configure a simple nginx reverse proxy.
+- To keep the previous work mostly untouched, I just added the job to build and push the image to an azure registry at the end of the actions workflow.
+- The image is published to an azure container registry, and this is pulled by a seperate web app to run the container./
 
 **App**
 
