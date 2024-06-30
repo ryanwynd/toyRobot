@@ -39,7 +39,7 @@ Docker
 
 **App**
 
-Can be found here: https://toyrobotwebapp.azurewebsites.net/ and in DEV if you're interested here: https://robotwebappdev.azurewebsites.net/
+Can be found here: https://toyrobotwebapp.azurewebsites.net/ and in DEV if you're interested here: https://robotwebappdev.azurewebsites.net/ aaand running in a container in dev here: https://devrobotcontainerapp.azurewebsites.net/
 
 Rules:
 - Commands are case insensitive
